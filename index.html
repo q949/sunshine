@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>起名网页</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        select, input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>简单的起名网页</h1>
+        <form id="nameForm">
+            <label for="gender">性别:</label>
+            <select id="gender">
+                <option value="male">男</option>
+                <option value="female">女</option>
+            </select>
+            <br>
+            <label for="lastName">姓氏（可选）:</label>
+            <input type="text" id="lastName" placeholder="如：李">
+            <br>
+            <label for="type">名字类型:</label>
+            <select id="type">
+                <option value="modern">现代</option>
+                <option value="historical">历史</option>
+            </select>
+            <br>
+            <button type="button" onclick="generateName()">生成名字</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // 定义名字库
+        const firstNames = {
+            male: ["阳", "宇", "轩", "晨", "浩", "博", "凯", "毅"],
+            female: ["雅", "芷", "茗", "萱", "婷", "婉", "静", "琳"]
+        };
+
+        const nameTypes = {
+            modern: ["豪", "杰", "涵", "思"],
+            historical: ["君", "郎", "卿", "儿"]
+        };
+
+        const lastNames = ["李", "王", "张", "刘", "陈", "杨", "赵", "黄", "周", "吴"];
+
+        function generateName() {
+            const gender = document.getElementById('gender').value;
+            const customLastName = document.getElementById('lastName').value.trim();
+            const nameType = document.getElementById('type').value;
+
+            // 选择姓氏
+            const lastName = customLastName || lastNames[Math.floor(Math.random() * lastNames.length)];
+            // 选择名字
+            const firstName = firstNames[gender][Math.floor(Math.random() * firstNames[gender].length)];
+            const suffix = nameTypes[nameType][Math.floor(Math.random() * nameTypes[nameType].length)];
+
+            const fullName = lastName + firstName + suffix;
+            document.getElementById('result').innerText = `生成的名字是: ${fullName}`;
+        }
+    </script>
+</body>
+</html>
